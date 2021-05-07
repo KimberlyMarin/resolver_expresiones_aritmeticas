@@ -1,6 +1,5 @@
 package test.java;
 
-
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -30,9 +29,11 @@ public class Calculator {
             //Algoritmo Infijo a Postfijo
             while (!E.isEmpty()) {
                 switch (pref(E.peek())){
+                    //Asignación de P con el valor que se extrae de E
                     case 1:
                         P.push(E.pop());
                         break;
+                        //Ciclo donde se reLiza la asignación del Prefijo en S cuando P es menor o igual que E
                     case 3:
                     case 4:
                         while(pref(P.peek()) >= pref(E.peek())) {
@@ -40,6 +41,7 @@ public class Calculator {
                         }
                         P.push(E.pop());
                         break;
+                        //Ciclo donde se almacena S cuando P es diferente a (
                     case 2:
                         while(!P.peek().equals("(")) {
                             S.push(P.pop());
@@ -51,6 +53,7 @@ public class Calculator {
                         S.push(E.pop());
                 }
             }
+            //Ciclo donde se comparan los operadores con el valor correspondiente a E
             String operadores = "+-*/%";
             while (!E.isEmpty()) {
                 if (operadores.contains("" + E.peek())) {
@@ -68,6 +71,7 @@ public class Calculator {
             System.out.println("Expresion Infija: " + infix);
             System.out.println("Expresion Postfija: " + postfix);
 
+        //En caso de no identificar la expresion algebraica se imprime la siguiente expresión
         }catch(Exception ex){
             System.out.println("Error en la expresión algebraica");
             System.err.println(ex);
@@ -81,6 +85,7 @@ public class Calculator {
         for (int i = postValidate.length - 1; i >= 0; i--) {
             F.push(postValidate[i]);
         }
+        //Ciclo donde se comparan los operadores logicos con el valor de F
         String operadores = "+-*/%";
         while (!F.isEmpty()) {
             if (operadores.contains("" + F.peek())) {
@@ -110,7 +115,7 @@ public class Calculator {
             }else str += s.charAt(i);
         }
         return str.replaceAll("\\s+", " ").trim();
-    }
+    }//Metodo con el cual se asignan las operaciones a evaluar
     private static int evaluar(String op, String n2, String n1) {
         int num1 = Integer.parseInt(n1);
         int num2 = Integer.parseInt(n2);
@@ -121,7 +126,7 @@ public class Calculator {
         if (op.equals("%")) return (num1 % num2);
         return 0;
     }
-    //Jerarquia de los operadores
+    //Jerarquia de los operadores busca en orden las operaciones
     private static int pref(String op) {
         int prf = 99;
         if (op.equals("^")) prf = 5;
